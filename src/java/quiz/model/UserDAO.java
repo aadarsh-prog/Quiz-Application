@@ -28,7 +28,7 @@ public class UserDAO {
             int rowsAffected = ps.executeUpdate();
             
             // If at least one row is inserted, registration is successful
-            if (rowsAffected > 0) {
+            if (rowsAffected != 0) {
                 status = true;
             }
         } catch (SQLException e) {

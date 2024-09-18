@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Quiz App </title>
+<link rel="stylesheet" href="quiz.css">
+<script type="text/javascript">
+    function playQuiz()
+    {
+        let quizId=document.getElementById("quizId").value;
+        if(quizId!=null)
+        {
+        window.location.href =`PlayQuiz?quizid=${quizId}`;
+        }
+        else
+        {
+            alert("Please Enter Quizid ");
+        }
+    }
+</script>
+</head>
+
+<body>
+    <div class="app">
+        <h1>Enter Quiz Id to Play Quiz</h1>
+        <div class="quiz">
+
+            <h2 id="question">Enter QuizId</h2><br>
+            <input type="number" id="quizId">
+            <button id="enter-btn" onclick="playQuiz()">Enter</button>
+        </div>
+     
+       
+    </div>
+</body>
+</html>

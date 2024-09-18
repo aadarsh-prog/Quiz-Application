@@ -5,7 +5,7 @@ public class DbConnection
     private static Connection con;
     private static String uname="root";
     private static String pass="0000";
-    private static String url="jdbc:mysql://192.168.0.192:3306/quiz?useSSL=false&allowPublicKeyRetrieval=true";
+    private static String url="jdbc:mysql:///quiz?useSSL=false&allowPublicKeyRetrieval=true";
      static
         {
           try
@@ -19,11 +19,11 @@ public class DbConnection
           
         }
     
-    public static  Connection getConnection()
+    public static  Connection getConnection() 
     {
        
-        if(con!=null)
-        {
+       
+        
            
                try
                {
@@ -34,7 +34,7 @@ public class DbConnection
             {
                 System.out.println(e);
             }
-        }
+        
                 
             return con;
         

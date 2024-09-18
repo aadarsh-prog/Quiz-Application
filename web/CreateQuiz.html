@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Quiz</title>
+    <link rel="stylesheet" href="app.css">
+    
+    <script type="text/javascript">
+    function addQuestion() {
+        var container = document.getElementById('questionsContainer');
+        var index = container.querySelectorAll('.question').length;
+        
+        var div = document.createElement('div');
+        div.className = 'question';
+        div.innerHTML = `
+            <h3>Question ${index + 1}</h3>
+            <label for="questionText${index}">Question Text:</label>
+            <input type="text" id="questionText${index}" name="questions[${index}]" required><br><br>
+            
+            <div id="optionsContainer${index}" class="options-container">
+                <label for="option0${index}">Option 1:</label>
+                <input type="text" id="option0${index}" name="questions[${index}][options][0]" required>
+                <label for="isCorrect0${index}">Correct?</label>
+                <input type="radio" id="isCorrect0${index}" name="questions[${index}][correct]" value="0" required><br><br>
+            </div>
+             <input type="hidden" id="optionCount${index}" name="questions[${index}][optionCount]" value="1">
+            <button type="button" onclick="addOption(${index})">Add Option</button><br><br>
+        `;
+
+        container.appendChild(div);
+        document.getElementById('numberOfQuestions').value = container.querySelectorAll('.question').length;
+    }
+
+    function addOption(questionIndex) {
+        var container = document.getElementById(`optionsContainer${questionIndex}`);
+        var optionCount = container.querySelectorAll('input[type="text"]').length;  // Count current options
+           var optionCountInput = document.getElementById(`optionCount${questionIndex}`);
+        optionCountInput.value = optionCount + 1;
+        var div = document.createElement('div');
+        div.innerHTML = `
+            <label for="option${optionCount}${questionIndex}">Option ${optionCount + 1}:</label>
+            <input type="text" id="option${optionCount}${questionIndex}" name="questions[${questionIndex}][options][${optionCount}]" required>
+            <label for="isCorrect${optionCount}${questionIndex}">Correct?</label>
+            <input type="radio" id="isCorrect${optionCount}${questionIndex}" name="questions[${questionIndex}][correct]" value="${optionCount}" required><br><br>
+        `;
+
+        container.appendChild(div);
+    }
+    </script>
+</head>
+<body>
+    <form action="CreateQuizServlet" >
+        <h2>Create a New Quiz</h2>
+        <label for="quizTitle">Quiz Title:</label>
+        <input type="text" id="quizTitle" name="quizTitle" required><br><br>
+        
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea><br><br>
+        
+        <label for="timeLimit">Time Limit (in minutes):</label>
+        <input type="number" id="timeLimit" name="timeLimit" required><br><br>
+
+        <div id="questionsContainer">
+            <!-- Dynamic questions will be added here -->
+        </div>
+        <input type="hidden" name="numberOfQuestions" id="numberOfQuestions" value="0">
+        <button type="button" onclick="addQuestion()">Add Question</button><br><br>
+        
+        <button type="submit">Create Quiz</button>
+    </form>
+</body>
+</html>
